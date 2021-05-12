@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    template: postgresql-ephemeral-template    
+  name: {{ .Values.db.servicename }}
+spec:
+  ports:
+  - name: postgresql
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    name: {{ .Values.db.servicename }}
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
