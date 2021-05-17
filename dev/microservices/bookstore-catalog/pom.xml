@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>bookstore-books-rest-api</artifactId>
+    <artifactId>bookstore-catalog</artifactId>
     <version>1.0</version>
 
-    <name>Bookstore Books Rest API</name>
+    <name>Bookstore Catalog Rest API</name>
     <description>Spring Boot Rest example based on RHOAR https://developers.redhat.com/products/rhoar/overview/
     </description>
 
