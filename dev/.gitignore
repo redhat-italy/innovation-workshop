@@ -257,3 +257,5 @@ buildNumber.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,visualstudiocode,intellij,macos,helm,maven
 CUSTOMNOTES.md
+
+*.vscode
