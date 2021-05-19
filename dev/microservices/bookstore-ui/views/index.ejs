@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta index="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta index="description" content="">
+  <meta index="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title><%= pagetitle %></title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    crossorigin="anonymous">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+    rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="album.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="modalTextContent" class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 9 9" stroke="currentColor"
+            fill="white" stroke-width="0.2">
+            <path d="M0 0v8h7v-4h-4v-4h-3zm4 0v3h3l-3-3zm-3 2h1v1h-1v-1zm0 2h1v1h-1v-1zm0 2h4v1h-4v-1z" />
+          </svg>
+          <strong>Acme Bookstore</strong>
+        </a>
+      </div>
+    </div>
+  </header>
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Books sales</h1>
+    <p class="lead">Our discounts for today!</p>
+    <!--  [API Book @ <%= bookscatalogapiurl%>] -->
+    <!--  Hidden mod -->
+  </div>
+
+  <div class="container-fluid mt-4">
+    <!-- Control the column width, and how they should appear on different devices -->
+    <div id="bookslist" class="row ">
+
+    </div>
+  </div>
+
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <!--spacer-->
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    //var urlRemoteRest = "file-browser-service-demo-batch-fuse.apps.nodisk.space";
+    var booksCatalogAPIurl = "<%= bookscatalogapiurl%>";
+    var bookInventoryAPIurl = "<%= bookinventoryapiurl%>";
+
+
+    function getBookStockAvailable(url, bookId) {
+      var ulrToCall = url + "/booksavailability/" + bookId;
+      var selector = "#" + bookId + "-buy-it";
+      console.log(selector);
+
+      $.getJSON(ulrToCall, function (data) {
+        $(selector)[0].firstChild.textContent = "Buy it ( " + data.quantity + " left )";
+      })
+        .fail(function () {
+          console.log("Can't get stock");
+        });
+    }
+
+
+    function addItemsToList(selector, url, label) {
+      var idItem = 1;
+      $.getJSON(url, function (data) {
+        var items = [];
+        $.each(data, function (index, currentItem) {
+          //alert(key+"="+currentItem);
+          //console.log(index + "=" + currentItem.title + " " + currentItem.id);
+
+          var stockMessage = "Buy it (stock unknown)"
+
+          var item = $("#" + selector).append(
+            '<div class="col-sm-4">' +
+            ' <div class="card mb-4 shadow-sm">' +
+            '   <div class="card-header">' +
+            '     <h4 class="my-0 font-weight-normal">' + currentItem.title + '</h4>' +
+            '   </div>' +
+            
+            '   <div class="card-body">' +
+            '     <div class="h-100 p-3" >'+
+            '       <img class="card-img-top" src="covers/' + currentItem.cover + '" alt="Card image cap" style="height: 300px; width: auto;">' +  
+            '     </div>'+            
+            '     <h1 class="card-title pricing-card-title">Offer ' + currentItem.price + '€ </h1>' +
+            '     <ul class="list-unstyled mt-3 mb-4">' +
+            '       <li>A book by ' + currentItem.author + '</li>' +
+            '    </ul>' +
+            '    <button type="button" class="btn btn-lg btn-block btn-secondary">Book info</button>' +
+            '    <button type="button" id="' + currentItem.id + '-buy-it" class="btn btn-lg btn-block btn-primary">' + stockMessage + '</button>' +
+            ' </div>' +
+            '</div>');
+
+          getBookStockAvailable(bookInventoryAPIurl, currentItem.id)
+
+          idItem++;
+
+        });
+        //     componet.html(label + "(" + (idItem - 1) + ")");
+      }).fail(function () {
+        console.log("Can't get books");
+      });
+    }
+
+    $(document).ready(function () {
+      items = addItemsToList("bookslist", booksCatalogAPIurl + "/books", "book");
+
+    });
+  </script>
+
+  <footer class="text-muted fixed-bottom">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+      <p>Acme Bookstore</p>
+      <p></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script -->
+  <script src="https://cdn.rawgit.com/imsky/holder/master/holder.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.1/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -12,6 +12,7 @@ public class Book {
     private String title;
     private String description;
     private String author;
+    private String cover;
     private double price;
 
     public Book() {
@@ -43,5 +44,13 @@ public class Book {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }
