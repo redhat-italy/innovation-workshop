@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestAPP.Controllers;
 
 namespace RestAPP
 {
@@ -19,6 +20,11 @@ namespace RestAPP
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Console.WriteLine("####################################################################################################");
+            Console.WriteLine("# Starting service: " + configuration.GetSection("BooksInventoryService").GetValue<String>("ServiceName"));
+            Console.WriteLine("####################################################################################################");
+            
+
         }
 
         public IConfiguration Configuration { get; }
@@ -54,7 +60,7 @@ namespace RestAPP
             app.UseRouting();
 
             app.UseCors(MyAllowSpecificOrigins);
-            
+
             app.UseStaticFiles();
 
             app.UseAuthorization();

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RestAPP.Controllers
 {
@@ -13,13 +15,19 @@ namespace RestAPP.Controllers
     [Route("[controller]")]
     public class BooksStockController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         private readonly ILogger<BooksStockController> _logger;
+        private readonly IConfiguration configuration;
 
+        [ActivatorUtilitiesConstructor]
+        public BooksStockController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public const string booksInventoryService = "BooksInventoryService";
+        public string ServiceName { get; set; }
+        public string Version { get; set; }
         public BooksStockController(ILogger<BooksStockController> logger)
         {
             _logger = logger;
@@ -28,7 +36,15 @@ namespace RestAPP.Controllers
         [HttpGet("/booksavailability/{id}")]
         public ActionResult<BookStockInfo> Get(int id)
         {
+
+            var dbuser = configuration.GetSection("BooksInventoryService").GetValue<String>("dbuser");
+            var dbpassword = configuration.GetSection("BooksInventoryService").GetValue<String>("dbpassword");
+            var dbhost = configuration.GetSection("BooksInventoryService").GetValue<String>("dbhost");
+                        
+            Console.WriteLine("Looking for book id: [" + id + "]");
+
             BookStockInfo bookStockInfo = null;
+            
 
             try
             {
@@ -40,10 +56,9 @@ namespace RestAPP.Controllers
                 //builder.Password = "password.1";
                 //builder.InitialCatalog = "<your_database>";
 
+                var serverhost = dbhost;
 
-                var serverhost = "localhost,1433";
-
-                using (SqlConnection connection = new SqlConnection("Server=" + serverhost + ",1433;User Id=sa;password=password.1"))
+                using (SqlConnection connection = new SqlConnection("Server=" + serverhost + ";User Id=" + dbuser + ";password="+ dbpassword))
                 {
                     connection.Open();
 

@@ -10,11 +10,18 @@ Test if the source works
 dotnet run --urls "http://localhost:5000"
 ```
 
+with profile:
+
+```
+dotnet run --urls "http://localhost:5000"
+```
 Point your browser to:
 
 ```
-http://localhost:5000/WeatherForecast
+http://localhost:5000/index.htlm
 ```
+
+NOTE: use ```ASPNETCORE_ENVIRONMENT=Production``` or ```ASPNETCORE_ENVIRONMENT=Development``` in order to load the right appsettings.json setup
 
 # setup SQLserver locally
 
@@ -43,6 +50,7 @@ in the dir
 bookstore-stock-dotnet-api/src/RestAP
 
 ```
+export ASPNETCORE_ENVIRONMENT=Production
 dotnet clean
 dotnet restore -r rhel.7-x64
 dotnet publish -f netcoreapp3.1 -c Release -r rhel.7-x64 --self-contained false /p:MicrosoftNETPlatformLibrary=Microsoft.NETCore.App
@@ -81,24 +89,24 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 # Binary deploy .netcore
 
-Run the commands from the  project root folder ```bookstore-stock-dotnet-api```.
+Run the commands from the  project root folder ```bookstore-inventory```.
 
 Create new app:
 
 ```
-oc new-app openshift/dotnet:3.1 --binary --name=bookstore-stock-api
+oc new-app openshift/dotnet:3.1 --binary --name=bookstore-inventory
 ```
 
 Start the binary build:
 
 ```
-oc start-build bookstore-stock-api --from-dir=bin/Release/netcoreapp3.1/rhel.7-x64/publish
+oc start-build bookstore-inventory --from-dir=bin/Release/netcoreapp3.1/rhel.7-x64/publish
 ```
 
 Expose the service:
 
 ```
-oc expose svc/bookstore-stock-api
+oc expose svc/bookstore-inventory
 ```
 
 Wait for the pod with the app to be available (oc get pods).
