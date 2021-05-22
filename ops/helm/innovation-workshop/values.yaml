@@ -4,14 +4,31 @@
 
 replicaCount: 1
 
-db:       
+catalogdb:       
   user: user1
   password: password1
-  database: inventory
-  servicename: inventory-db2
+  database: catalog
+  servicename: catalogdb
   memory: 512Mi
+  port: 5432
   image: image-registry.openshift-image-registry.svc:5000/openshift/postgresql:12-el8
-  
+
+inventorydb: 
+  servicename: inventorydb
+  accepteula: 'Y'
+  password: password.1
+  mssqlpid: Developer
+  limits:
+    memory: 1500Mi
+    cpu: 1000m
+  request:
+    memory: 1024Mi
+    cpu: 500m
+  port: 1433
+  image: mcr.microsoft.com/mssql/rhel/server:2019-latest
+  #image: mcr.microsoft.com/mssql/rhel/server:2019-GA-rhel-7.6
+  #image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little

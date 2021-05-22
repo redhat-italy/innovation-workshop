@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.catalogdb.servicename }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.catalogdb.servicename }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.catalogdb.servicename }}
+        app: {{ .Values.catalogdb.servicename }}         
+    spec:  
+      containers:              
+        - name: postgres
+          image: {{ .Values.catalogdb.image }}
+          resources:
+            limits:
+              memory: {{ .Values.catalogdb.memory }} 
+            requests:
+              memory: {{ .Values.catalogdb.memory }}       
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.catalogdb.port }}
+          env:
+            - name: POSTGRESQL_USER
+              value: {{ .Values.catalogdb.user }}
+            - name: POSTGRESQL_PASSWORD
+              value: {{ .Values.catalogdb.password }}
+            - name: POSTGRESQL_DATABASE
+              value: {{ .Values.catalogdb.database }}   
+            - name: POSTGRESQL_ADMIN_PASSWORD
+              value: {{ .Values.catalogdb.password }}
+            - name: PGPASSWORD
+              value: {{ .Values.catalogdb.password }}      

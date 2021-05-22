@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    template: sqlserver-ephemeral-template    
+  name: {{ .Values.inventorydb.servicename }}
+spec:
+  ports:
+  - name: sqlserver
+    port: {{ .Values.inventorydb.port }}
+    protocol: TCP
+    targetPort: {{ .Values.inventorydb.port }}
+  selector:
+    name: {{ .Values.inventorydb.servicename }}
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

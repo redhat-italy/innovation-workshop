@@ -3,7 +3,7 @@ package com.acme.bookstore.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "books")
+@Table(name = "bookscatalog")
 public class Book {
 
     @Id

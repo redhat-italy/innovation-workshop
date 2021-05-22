@@ -1,8 +1,6 @@
-# Build local app
+# Build local app and publish
 
-dotnet clean
-dotnet restore 
-dotnet publish 
+dotnet clean && dotnet restore && dotnet publish
 
 # Run the app
 
@@ -18,7 +16,9 @@ Point your browser to:
 http://localhost:5000/WeatherForecast
 ```
 
-# setup SQLserver
+# setup SQLserver locally
+
+mcr.microsoft.com/mssql/rhel/server:2019-latest
 
 docker run --name inventorydb -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=password.1' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
 
@@ -26,9 +26,9 @@ docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P pa
 
 docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "CREATE TABLE booksinventory (     id INT PRIMARY KEY IDENTITY (1, 1),     bookid INT NOT NULL,    quantity INT NOT NULL    );"
 
-docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "insert into booksinventory (id, bookid, quantity) VALUES (1, 1, 13)"
-docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "insert into booksinventory (id, bookid, quantity) VALUES (2, 2, 24)"
-docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "insert into booksinventory (id, bookid, quantity) VALUES (3, 3, 36)"
+docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "insert into booksinventory (bookid, quantity) VALUES (1, 13)"
+docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "insert into booksinventory (bookid, quantity) VALUES (2, 24)"
+docker exec -it inventorydb /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password.1 -Q "insert into booksinventory (bookid, quantity) VALUES (3, 36)"
 
 
 

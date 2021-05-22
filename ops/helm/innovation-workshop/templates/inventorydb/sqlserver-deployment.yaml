@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.inventorydb.servicename }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.inventorydb.servicename }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.inventorydb.servicename }}
+        app: {{ .Values.inventorydb.servicename }}         
+    spec:  
+      containers:        
+
+          
+        - name: sqlserver
+          image: {{ .Values.inventorydb.image }}
+          resources:
+            limits:
+              memory: {{ .Values.inventorydb.limits.memory }} 
+              cpu: {{ .Values.inventorydb.limits.cpu }} 
+            requests:
+              memory: {{ .Values.inventorydb.request.memory }} 
+              cpu: {{ .Values.inventorydb.request.cpu }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.inventorydb.port }}
+          env:
+            - name: SA_PASSWORD
+              value: {{ .Values.inventorydb.password }}
+            - name: ACCEPT_EULA
+              value: "{{ .Values.inventorydb.accepteula }}"
+            - name: MSSQL_PID
+              value: {{ .Values.inventorydb.mssqlpid }}                    

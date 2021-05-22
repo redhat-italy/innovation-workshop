@@ -3,15 +3,15 @@ kind: Service
 metadata:
   labels:
     template: postgresql-ephemeral-template    
-  name: {{ .Values.db.servicename }}
+  name: {{ .Values.catalogdb.servicename }}
 spec:
   ports:
   - name: postgresql
-    port: 5432
+    port: {{ .Values.catalogdb.port }}
     protocol: TCP
-    targetPort: 5432
+    targetPort: {{ .Values.catalogdb.port }}
   selector:
-    name: {{ .Values.db.servicename }}
+    name: {{ .Values.catalogdb.servicename }}
   sessionAffinity: None
   type: ClusterIP
 status:

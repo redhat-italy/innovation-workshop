@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  data.sql: |
+    GO  
+    CREATE TABLE booksinventory (     
+      id INT PRIMARY KEY IDENTITY (1, 1),     
+      bookid INT NOT NULL,    
+      quantity INT NOT NULL    
+    );
+
+    INSERT INTO booksinventory (bookid, quantity) VALUES (1, 11);
+    INSERT INTO booksinventory (bookid, quantity) VALUES (2, 22);
+    INSERT INTO booksinventory (bookid, quantity) VALUES (3, 33);
+    INSERT INTO booksinventory (bookid, quantity) VALUES (4, 999);
+    GO
+kind: ConfigMap
+metadata:
+  name: {{ .Values.inventorydb.servicename }}-init-script
