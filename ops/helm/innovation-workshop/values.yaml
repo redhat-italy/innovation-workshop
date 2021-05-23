@@ -4,6 +4,15 @@
 
 replicaCount: 1
 
+image:
+  repository: image-registry.openshift-image-registry.svc:5000
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+microservices-config:
+  ocphostdomain: none.xxx
+
 catalogdb:       
   user: user1
   password: password1
@@ -40,6 +49,7 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
 
 autoscaling:
   enabled: false

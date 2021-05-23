@@ -1,0 +1,61 @@
+apiVersion: v1
+items:
+- apiVersion: tekton.dev/v1beta1
+  kind: Pipeline
+  metadata:
+    name: front-end-pipeline
+  spec:
+    params:
+    - default: {{ .Release.Namespace }}
+      description: The target namespace
+      name: target-namespace
+      type: string
+    tasks:
+    - name: fetch-repository
+      params:
+      - name: url
+        value: https://github.com/eljeko/tekton-demo
+      - name: deleteExisting
+        value: "true"
+      - name: subdirectory
+        value: ""
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+      - name: output
+        workspace: workspace-acme
+    - name: build-app
+      runAfter:
+      - fetch-repository
+      taskRef:
+        name: node-build
+      workspaces:
+      - name: source
+        workspace: workspace-acme
+    - name: create-app-image
+      params:
+      - name: namespace
+        value: $(params.target-namespace)
+      runAfter:
+      - build-app
+      taskRef:
+        name: node-binary-deploy
+      workspaces:
+      - name: source
+        workspace: workspace-acme
+    - name: rollout-app
+      params:
+      - name: namespace
+        value: $(params.target-namespace)
+      runAfter:
+      - create-app-image
+      taskRef:
+        name: node-rollout
+      workspaces:
+      - name: source
+        workspace: workspace-acme        
+    workspaces:
+    - name: workspace-acme
+kind: List
+metadata: {}

@@ -1,0 +1,24 @@
+apiVersion: v1
+items:
+- apiVersion: tekton.dev/v1beta1
+  kind: Task
+  metadata:
+    name: node-binary-deploy
+  spec:
+    params:
+    - name: namespace
+      type: string
+    steps:
+    - args:
+      - oc start-build bookstore-ui --from-file=/workspace/source/bookstore-node-fe 
+        -n $(params.namespace) --wait
+      command:
+      - /bin/bash
+      - -c
+      image: quay.io/openshift/origin-cli:latest
+      name: deploy
+    workspaces:
+    - description: The workspace where the source code will found
+      name: source
+kind: List
+metadata: {}

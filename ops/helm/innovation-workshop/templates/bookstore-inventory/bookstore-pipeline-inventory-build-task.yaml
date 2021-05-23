@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: dotnet-build
+spec:
+  workspaces:
+  - name: source
+    description: The workspace where the source code will found
+  steps:
+    - name: simple-dotnet-publish
+      image: registry.access.redhat.com/ubi8/dotnet-31 # .NET Core SDK
+#      securityContext:
+#        runAsUser: 0  # UBI 8 images generally run as non-root
+      script: |
+          #!/usr/bin/bash
+          cd /workspace/source/dev/microservices/bookstore-inventory/src/RestAPP
+          dotnet --info
+          dotnet clean
+          dotnet restore -r rhel.7-x64
+          dotnet publish -f netcoreapp3.1 -c Release -r rhel.7-x64 --self-contained false /p:MicrosoftNETPlatformLibrary=Microsoft.NETCore.App

@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: node-build
+spec:
+  workspaces:
+  - name: source
+    description: The workspace where the source code will found
+  steps:  
+  - name: build
+    image: node
+    command: ["/bin/bash", "-c"]      
+    args:
+      - npm install --prefix ./source/bookstore-node-fe ./source/bookstore-node-fe
+
+
+

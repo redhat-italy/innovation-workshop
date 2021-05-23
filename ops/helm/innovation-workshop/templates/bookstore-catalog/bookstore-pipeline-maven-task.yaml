@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: maven-build
+spec:
+  workspaces:
+  - name: source
+    description: The workspace where the source code will found
+  steps:  
+  - name: build
+    image: maven:3.6.0-jdk-8-slim
+    command: ["/bin/bash", "-c"]      
+    args:
+    - /usr/bin/mvn -f /workspace/source/bookstore-books-java-rest-api/pom.xml -s /workspace/source/dev/microservices/bookstore-catalog/custom-settings.xml clean package spring-boot:repackage
+
+
+

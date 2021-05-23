@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: bookstore-catalog
+    app.kubernetes.io/component: bookstore-catalog
+    app.kubernetes.io/instance: bookstore-catalog
+  name: bookstore-catalog
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: bookstore-catalog:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: redhat-openjdk18-openshift:1.8
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5

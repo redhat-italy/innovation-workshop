@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: bookstore-inventory
+    app.kubernetes.io/component: bookstore-inventory
+    app.kubernetes.io/instance: bookstore-inventory
+  name: bookstore-inventory
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: bookstore-inventory:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: dotnet:3.1
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5

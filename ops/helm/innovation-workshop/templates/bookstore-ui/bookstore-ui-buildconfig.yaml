@@ -1,0 +1,30 @@
+
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: bookstore-ui
+    app.kubernetes.io/component: bookstore-ui
+    app.kubernetes.io/instance: bookstore-ui
+  name: bookstore-ui
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: bookstore-ui:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nodejs:latest
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5

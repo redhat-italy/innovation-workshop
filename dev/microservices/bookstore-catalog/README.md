@@ -16,17 +16,17 @@ mvn clean package spring-boot:repackage
 We can create the builder for our application:
 
 ```
-oc new-app redhat-openjdk18-openshift:1.8 --binary --name=bookstore-books-api
+oc new-app redhat-openjdk18-openshift:1.8 --binary --name=bookstore-catalog
 ```
 
 ```
-oc start-build bookstore-books-api --from-file target/bookstore-books-rest-api-1.0.jar
+oc start-build bookstore-catalog --from-file target/bookstore-catalog-1.0.jar
 ```
 
 ## Expose the service as route.
 
 ```
-oc expose svc bookstore-books-api
+oc expose svc bookstore-catalog
 ```
 
 # Setup local database
