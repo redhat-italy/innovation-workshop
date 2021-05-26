@@ -3,14 +3,16 @@ items:
 - apiVersion: tekton.dev/v1beta1
   kind: Task
   metadata:
-    name: node-rollout
+    name: deployment-rollout
   spec:
     params:
     - name: namespace
       type: string
+    - name: deployment-name
+      type: string
     steps:
     - args:
-      - oc rollout restart deployment bookstore-ui -n $(params.namespace)
+      - oc rollout restart deployment $(params.deployment-name) -n $(params.namespace)
       command:
       - /bin/bash
       - -c

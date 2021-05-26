@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookstore-catalog
+  name: bookstore-quarkus-catalog
   labels:
-    app: bookstore-catalog
+    app: bookstore-quarkus-catalog
     version: v1
     {{- include "innovation-workshop.labels" . | nindent 4 }}    
 spec:
@@ -20,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        app: bookstore-catalog
+        app: bookstore-quarkus-catalog
         version: v1
         {{- include "innovation-workshop.selectorLabels" . | nindent 8 }}
     spec:
@@ -31,10 +31,10 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: bookstore-catalog
+        - name: bookstore-quarkus-catalog
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-catalog:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-quarkus-catalog:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: JAVA_ARGS

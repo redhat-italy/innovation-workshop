@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: bookstore-quarkus-catalog
+    app.kubernetes.io/component: bookstore-quarkus-catalog
+    app.kubernetes.io/instance: bookstore-quarkus-catalog
+  name: bookstore-quarkus-catalog
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: bookstore-quarkus-catalog
+    weight: 100
+  wildcardPolicy: None

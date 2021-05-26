@@ -1,0 +1,11 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: bookstore-quarkus-catalog
+    app.kubernetes.io/component: bookstore-quarkus-catalog
+    app.kubernetes.io/instance: bookstore-quarkus-catalog  
+  name: bookstore-quarkus-catalog
+spec:
+  lookupPolicy:
+    local: false

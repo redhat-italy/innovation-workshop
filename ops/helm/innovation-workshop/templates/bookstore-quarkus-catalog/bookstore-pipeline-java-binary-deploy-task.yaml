@@ -3,14 +3,15 @@ items:
 - apiVersion: tekton.dev/v1beta1
   kind: Task
   metadata:
-    name: java-rollout
+    name: java-binary-deploy
   spec:
     params:
     - name: namespace
       type: string
     steps:
     - args:
-      - oc rollout restart deployment bookstore-catalog -n $(params.namespace)
+      - oc start-build bookstore-quarkus-catalog --from-file=/workspace/source/dev/microservices/bookstore-quarkus-catalog/target/bookstore-quarkus-catalog-1.0.jar
+        -n $(params.namespace) --wait
       command:
       - /bin/bash
       - -c

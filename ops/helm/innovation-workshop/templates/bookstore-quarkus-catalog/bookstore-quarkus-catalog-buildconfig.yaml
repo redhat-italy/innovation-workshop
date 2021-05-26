@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: bookstore-quarkus-catalog
+    app.kubernetes.io/component: bookstore-quarkus-catalog
+    app.kubernetes.io/instance: bookstore-quarkus-catalog
+  name: bookstore-quarkus-catalog
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: bookstore-quarkus-catalog:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: openjdk-11-rhel8:1.0
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5

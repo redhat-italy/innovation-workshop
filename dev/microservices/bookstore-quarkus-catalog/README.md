@@ -27,6 +27,10 @@ If you want to build an _über-jar_, execute the following command:
 
 The application is now runnable using `java -jar target/bookstore-quarkus-catalog-1.0.0-SNAPSHOT-runner.jar`.
 
+## Run with a profile
+
+```export QUARKUS_PROFILE=<YOUR_PROFILE>```
+
 ## Creating a native executable
 
 You can create a native executable using: 
@@ -42,9 +46,3 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/bookstore-quarkus-catalog-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
-
-# RESTEasy JAX-RS
-
-<p>A Hello World RESTEasy resource</p>
-
-Guide: https://quarkus.io/guides/rest-json

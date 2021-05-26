@@ -11,6 +11,10 @@ items:
       description: The target namespace
       name: target-namespace
       type: string
+    - default: bookstore-inventory
+      description: The application name
+      name: application-name
+      type: string      
     tasks:
     - name: fetch-repository
       params:
@@ -49,10 +53,12 @@ items:
       params:
       - name: namespace
         value: $(params.target-namespace)
+      - name: deployment-name
+        value: $(params.application-name)                
       runAfter:
       - create-app-image
       taskRef:
-        name: dotnet-rollout
+        name: deployment-rollout
       workspaces:
       - name: source
         workspace: workspace-acme        

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: bookstore-quarkus-catalog
+    app.kubernetes.io/component: bookstore-quarkus-catalog
+    app.kubernetes.io/instance: bookstore-quarkus-catalog
+  name: bookstore-quarkus-catalog
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: 8443-tcp
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+  - name: 8778-tcp
+    port: 8778
+    protocol: TCP
+    targetPort: 8778
+  selector:
+    app: bookstore-quarkus-catalog
+  sessionAffinity: None
+  type: ClusterIP
