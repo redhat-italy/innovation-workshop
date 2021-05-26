@@ -13,6 +13,9 @@ image:
 microservices-config:
   ocphostdomain: none.xxx
 
+pipelines:
+  giturl: https://github.com/redhat-italy/innovation-workshop
+
 catalogdb:       
   user: user1
   password: password1

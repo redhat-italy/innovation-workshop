@@ -8,10 +8,10 @@ spec:
     description: The workspace where the source code will found
   steps:  
   - name: build
-    image: maven:3.6.0-jdk-8-slim
+    image: maven:3.8-jdk-11
     command: ["/bin/bash", "-c"]      
     args:
-    - /usr/bin/mvn -f /workspace/source/bookstore-books-java-rest-api/pom.xml -s /workspace/source/dev/microservices/bookstore-catalog/custom-settings.xml clean package spring-boot:repackage
+    - /usr/bin/mvn -f /workspace/source/dev/microservices/bookstore-catalog/pom.xml -s /workspace/source/dev/microservices/bookstore-catalog/custom-settings.xml clean package spring-boot:repackage
 
 
 

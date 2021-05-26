@@ -10,7 +10,7 @@ items:
       type: string
     steps:
     - args:
-      - oc start-build bookstore-ui --from-file=/workspace/source/bookstore-node-fe 
+      - oc start-build bookstore-ui --from-file=/workspace/source/dev/microservices/bookstore-ui 
         -n $(params.namespace) --wait
       command:
       - /bin/bash

@@ -10,7 +10,7 @@ items:
       type: string
     steps:
     - args:
-      - oc rollout restart deployment {{ include "innovation-workshop.fullname" . }}-inventory -n $(params.namespace)
+      - oc rollout restart deployment bookstore-inventory -n $(params.namespace)
       command:
       - /bin/bash
       - -c

@@ -1,6 +1,5 @@
 # Manual deploy
 
-
 ## build the app locally
 
 ```

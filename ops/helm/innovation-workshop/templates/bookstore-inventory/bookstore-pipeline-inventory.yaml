@@ -3,7 +3,7 @@ items:
 - apiVersion: tekton.dev/v1beta1
   kind: Pipeline
   metadata:
-    name: stock-api-pipeline
+    name: inventory-pipeline
   spec:
     description: A dotnet ReST service pipeline
     params:
@@ -15,7 +15,7 @@ items:
     - name: fetch-repository
       params:
       - name: url
-        value: https://github.com/redhat-italy/innovation-workshop
+        value: {{ .Values.pipelines.giturl }}
       - name: deleteExisting
         value: "true"
       - name: subdirectory

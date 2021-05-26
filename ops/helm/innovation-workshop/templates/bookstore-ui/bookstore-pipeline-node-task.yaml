@@ -11,7 +11,7 @@ spec:
     image: node
     command: ["/bin/bash", "-c"]      
     args:
-      - npm install --prefix ./source/bookstore-node-fe ./source/bookstore-node-fe
+      - npm install --prefix ./source/dev/microservices/bookstore-ui ./source/dev/microservices/bookstore-ui
 
 
 

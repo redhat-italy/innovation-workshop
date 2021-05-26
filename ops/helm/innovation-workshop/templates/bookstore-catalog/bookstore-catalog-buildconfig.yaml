@@ -23,7 +23,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: redhat-openjdk18-openshift:1.8
+        name: openjdk-11-rhel8:1.0
         namespace: openshift
     type: Source
   successfulBuildsHistoryLimit: 5

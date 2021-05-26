@@ -3,7 +3,7 @@ items:
 - apiVersion: tekton.dev/v1beta1
   kind: Pipeline
   metadata:
-    name: front-end-pipeline
+    name: ui-pipeline
   spec:
     params:
     - default: {{ .Release.Namespace }}
@@ -14,7 +14,7 @@ items:
     - name: fetch-repository
       params:
       - name: url
-        value: https://github.com/eljeko/tekton-demo
+        value: {{ .Values.pipelines.giturl }}
       - name: deleteExisting
         value: "true"
       - name: subdirectory

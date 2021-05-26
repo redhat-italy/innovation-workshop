@@ -4,6 +4,7 @@ metadata:
   name: bookstore-ui
   labels:
     app: bookstore-ui
+    version: v1
     {{- include "innovation-workshop.labels" . | nindent 4 }}    
 spec:
 {{- if not .Values.autoscaling.enabled }}
@@ -20,6 +21,7 @@ spec:
     {{- end }}
       labels:
         app: bookstore-ui
+        version: v1
         {{- include "innovation-workshop.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
