@@ -3,7 +3,7 @@ items:
 - apiVersion: tekton.dev/v1beta1
   kind: Pipeline
   metadata:
-    name: catalog-pipeline
+    name: quarkus-catalog-pipeline
   spec:
     description: A java springboot ReST service pipeline
     params:
