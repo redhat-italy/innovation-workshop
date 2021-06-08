@@ -13,7 +13,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: bookstore-ui:latest
+      name: bookstore-ui:{{ .Values.microservices.config.bookstore.ui.tag }}
   postCommit: {}
   resources: {}
   runPolicy: Serial
@@ -24,7 +24,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: nodejs:latest
+        name: {{ .Values.microservices.config.bookstore.ui.baseimage }}
         namespace: openshift
     type: Source
   successfulBuildsHistoryLimit: 5

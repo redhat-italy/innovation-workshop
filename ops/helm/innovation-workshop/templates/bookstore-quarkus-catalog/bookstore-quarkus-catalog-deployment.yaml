@@ -34,7 +34,7 @@ spec:
         - name: bookstore-quarkus-catalog
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-quarkus-catalog:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-quarkus-catalog:{{ .Values.microservices.config.bookstore.quarkuscatalog.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: QUARKUS_PROFILE

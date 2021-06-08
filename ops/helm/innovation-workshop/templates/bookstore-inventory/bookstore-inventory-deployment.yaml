@@ -34,7 +34,7 @@ spec:
         - name: bookstore-inventory
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-inventory:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-inventory:{{ .Values.microservices.config.bookstore.inventory.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

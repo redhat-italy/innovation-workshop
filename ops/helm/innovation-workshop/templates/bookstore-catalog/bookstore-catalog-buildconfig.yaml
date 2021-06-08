@@ -12,7 +12,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: bookstore-catalog:latest
+      name: bookstore-catalog:{{ .Values.microservices.config.bookstore.catalog.tag }}
   postCommit: {}
   resources: {}
   runPolicy: Serial
@@ -23,7 +23,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: openjdk-11-rhel8:1.0
+        name: {{ .Values.microservices.config.bookstore.catalog.baseimage }}
         namespace: openshift
     type: Source
   successfulBuildsHistoryLimit: 5

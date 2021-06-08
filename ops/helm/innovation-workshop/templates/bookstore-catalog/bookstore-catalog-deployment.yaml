@@ -34,7 +34,7 @@ spec:
         - name: bookstore-catalog
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-catalog:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-catalog:{{ .Values.microservices.config.bookstore.catalog.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: JAVA_ARGS

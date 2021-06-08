@@ -12,7 +12,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: bookstore-inventory:latest
+      name: bookstore-inventory:{{ .Values.microservices.config.bookstore.inventory.tag }}
   postCommit: {}
   resources: {}
   runPolicy: Serial
@@ -23,7 +23,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: dotnet:3.1
+        name: {{ .Values.microservices.config.bookstore.inventory.baseimage }}
         namespace: openshift
     type: Source
   successfulBuildsHistoryLimit: 5

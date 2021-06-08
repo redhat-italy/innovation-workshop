@@ -34,7 +34,7 @@ spec:
         - name: {{ .Chart.Name }}-fe       
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-ui:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-ui:{{ .Values.microservices.config.bookstore.ui.tag }}"
           env:
             - name: BOOKSCATALOGAPIURL
               value: "http://bookstore-catalog-{{ .Release.Namespace }}{{ .Values.microservices.config.ui.ocphostdomain }}"
