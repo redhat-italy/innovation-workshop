@@ -10,8 +10,19 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-microservices-config:
-  ocphostdomain: none.xxx
+microservices:
+  config:
+    bookstore:
+      catalog:
+        baseimage: "openjdk-11-rhel8:1.0"
+        tag: 1.0
+      invetory:
+        baseimage: "dotnet:3.1"      
+        tag: 1.0
+      ui:
+        ocphostdomain: none.xxx
+        baseimage: "nodejs:latest"      
+        tag: 1.0
 
 pipelines:
   giturl: https://github.com/redhat-italy/innovation-workshop
