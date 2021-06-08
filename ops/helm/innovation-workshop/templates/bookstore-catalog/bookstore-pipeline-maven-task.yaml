@@ -11,7 +11,7 @@ spec:
     image: maven:3.8-jdk-11
     command: ["/bin/bash", "-c"]      
     args:
-    - /usr/bin/mvn -f /workspace/source/dev/microservices/bookstore-catalog/pom.xml -s /workspace/source/dev/microservices/bookstore-catalog/custom-settings.xml clean package spring-boot:repackage
+    - /usr/bin/mvn -f /workspace/source/catalog/dev/microservices/bookstore-catalog/pom.xml -s /workspace/source/catalog/dev/microservices/bookstore-catalog/custom-settings.xml clean package spring-boot:repackage -Dmaven.repo.local=/workspace/source/m2
 
 
 

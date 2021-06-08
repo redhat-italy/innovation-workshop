@@ -23,7 +23,7 @@ items:
       - name: deleteExisting
         value: "true"
       - name: subdirectory
-        value: ""
+        value: "catalog"
       taskRef:
         kind: ClusterTask
         name: git-clone
@@ -45,7 +45,7 @@ items:
       - name: buildconfig-name
         value: bookstore-catalog
       - name: jar-file-path
-        value: /workspace/source/dev/microservices/bookstore-catalog/target/bookstore-catalog-1.0.jar
+        value: /workspace/source/catalog/dev/microservices/bookstore-catalog/target/bookstore-catalog-1.0.jar
       runAfter:
       - build-app
       taskRef:

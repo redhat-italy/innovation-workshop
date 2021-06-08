@@ -11,7 +11,7 @@ spec:
     image: maven:3.8-jdk-11
     command: ["/bin/bash", "-c"]      
     args:
-    - /usr/bin/mvn -f /workspace/source/dev/microservices/bookstore-quarkus-catalog/pom.xml -s /workspace/source/dev/microservices/bookstore-quarkus-catalog/custom-settings.xml clean package -Dquarkus.package.type=uber-jar -DskipTests=true
+    - /usr/bin/mvn -f /workspace/source/dev/microservices/bookstore-quarkus-catalog/pom.xml -s /workspace/source/dev/microservices/bookstore-quarkus-catalog/custom-settings.xml clean package -Dquarkus.package.type=uber-jar -DskipTests=true -Dmaven.repo.local=/workspace/m2
 
 
 
