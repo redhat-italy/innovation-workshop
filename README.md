@@ -7,7 +7,7 @@ A workshop about DevSecOps and Application modernization
 Inlcluded microservices:
 
 ## Catalog 
-[Bookstore-catalog](tree/main/dev/microservices/bookstore-catalog) is java microservice.
+[Bookstore-catalog](../../tree/main/dev/microservices/bookstore-catalog) is java microservice.
 This repo contains the Quarkus version called [bookstore-quarkus-catalog](tree/main/dev/microservices/bookstore-quarkus-catalog)
 
 ## Inventory
