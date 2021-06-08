@@ -8,10 +8,11 @@ Inlcluded microservices:
 
 ## Catalog 
 [Bookstore-catalog](../../tree/main/dev/microservices/bookstore-catalog) is java microservice.
+
 This repo contains the Quarkus version called [bookstore-quarkus-catalog](../../tree/main/dev/microservices/bookstore-quarkus-catalog)
 
 ## Inventory
-A dotnet core microservice
+[Bookstore-inventory](../../tree/main/dev/microservices/bookstore-inventory) is dotnet core microservice.
 
 ## UI
 
