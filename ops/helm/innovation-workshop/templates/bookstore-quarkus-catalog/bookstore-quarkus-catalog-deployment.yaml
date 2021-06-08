@@ -51,7 +51,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /books
               port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
@@ -60,7 +60,7 @@ spec:
             failureThreshold: 5              
           readinessProbe:
             httpGet:
-              path: /
+              path: /books
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
