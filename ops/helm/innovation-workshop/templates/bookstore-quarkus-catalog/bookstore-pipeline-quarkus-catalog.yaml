@@ -23,7 +23,7 @@ items:
       - name: deleteExisting
         value: "true"
       - name: subdirectory
-        value: ""
+        value: "quarkuscatalog"
       taskRef:
         kind: ClusterTask
         name: git-clone
