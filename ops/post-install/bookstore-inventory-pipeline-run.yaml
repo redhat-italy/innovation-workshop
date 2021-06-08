@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata: 
+  name: setup-inventory
+spec:
+  params:
+    - name: target-namespace
+      value: innovation-workshop
+    - name: application-name
+      value: bookstore-inventory
+  pipelineRef:
+    name: inventory-pipeline
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: workspace-acme
+      persistentVolumeClaim:
+        claimName: pipeline-inventory-pvc
