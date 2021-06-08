@@ -37,9 +37,9 @@ spec:
           image: "{{ .Values.image.repository }}/{{ .Release.Namespace }}/bookstore-ui:{{ .Values.microservices.config.bookstore.ui.tag }}"
           env:
             - name: BOOKSCATALOGAPIURL
-              value: "http://bookstore-catalog-{{ .Release.Namespace }}{{ .Values.microservices.config.ui.ocphostdomain }}"
+              value: "http://bookstore-catalog-{{ .Release.Namespace }}{{ .Values.microservices.config.bookstore.ui.ocphostdomain }}"
             - name: BOOKINVENTORYAPIURL
-              value: "http://bookstore-inventory-{{ .Release.Namespace }}{{ .Values.microservices.config.ui.ocphostdomain }}"
+              value: "http://bookstore-inventory-{{ .Release.Namespace }}{{ .Values.microservices.config.bookstore.ui.ocphostdomain }}"
             - name: PORT
               value: "8080"   
           imagePullPolicy: {{ .Values.image.pullPolicy }}
