@@ -1,0 +1,17 @@
+---
+- name: Check if helm executable is available in the default path
+  stat:
+    path: /usr/local/bin/helm
+  register: check_helm_binary
+
+- name: Include helm client configuration
+  include_tasks: helm_client.yaml
+  when: not check_helm_binary.stat.exists
+
+- name: Deploy chart from local path
+  community.kubernetes.helm:
+    kubeconfig: "{{ kubeconfig_path }}"
+    name: "{{ application_name }}"
+    release_namespace: "{{ target_namespace }}"
+    release_state: absent
+    wait: true

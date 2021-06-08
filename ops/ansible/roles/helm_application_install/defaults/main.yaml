@@ -1,0 +1,9 @@
+---
+application_repo: https://github.com/redhat-italy/innovation-workshop
+application_name: demo-app
+chart_subdir: ops/helm
+chart_name: innovation_workshop
+chart_local_temp: /tmp/innovation-workshop
+target_namespace: demo-project
+kubeconfig_path: ""
+target_context: ""

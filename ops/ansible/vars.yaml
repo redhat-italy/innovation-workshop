@@ -1,0 +1,24 @@
+---
+# Path to the kubeconfig file used for the automation
+kubeconfig_path: "YOUR_KUBECONFIG_PATH_HERE"
+
+# Application info
+application_name: demo-app
+application_repo: https://github.com/redhat-italy/innovation-workshop
+chart_subdir: ops/helm
+chart_name: innovation-workshop
+chart_local_temp: /tmp/innovation-workshop
+
+# Target namespace where the application will be installed
+target_namespace: demo-project
+
+# The ingress domain prefix applied in the helm templates
+ingress_domain_prefix: "YOUR_INGRESS_DOMAIN_PREFIX_HERE" 
+
+# Custom chart values
+custom_values:     
+  microservices:
+    config:
+      bookstore:
+        ui:
+          ocphostdomain: "{{ ingress_domain_prefix }}"

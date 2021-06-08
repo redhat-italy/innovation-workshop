@@ -1,0 +1,40 @@
+---
+- name: Check if helm executable is available in the default path
+  stat:
+    path: /usr/local/bin/helm
+  register: check_helm_binary
+
+- name: Include helm client configuration
+  include_tasks: helm_client.yaml
+  when: not check_helm_binary.stat.exists
+
+# We prefer to create the namespace independently in order to be able to
+# apply custom annotations and labels
+- name: Create target namespace for the chart
+  community.kubernetes.k8s:
+    kubeconfig: "{{ kubeconfig_path }}"
+    state: present
+    definition: "{{ lookup('template', 'release_namespace.yaml.j2') | from_yaml }}"
+    wait_sleep: 10
+    wait_timeout: 360
+
+# Always pull the latest repo version
+- name: Git clone stable repo on HEAD
+  ansible.builtin.git:
+    repo: "{{ application_repo }}"
+    dest: "{{ chart_local_temp }}"
+
+- debug:
+    var: custom_values[microservices-config]
+
+# Deploy chart with custom values
+- name: Deploy chart from local path
+  community.kubernetes.helm:
+    kubeconfig: "{{ kubeconfig_path }}"
+    name: "{{ application_name }}"
+    chart_ref: "{{ chart_local_temp}}/{{ chart_subdir }}/{{ chart_name }}"
+    release_namespace: "{{ target_namespace }}"
+    release_state: present
+    wait: false
+    values: "{{ custom_values }}"
+
