@@ -8,10 +8,13 @@ items:
     params:
     - name: namespace
       type: string
+    - name: buildconfig-name
+      type: string
+    - name: jar-file-path
+      type: string            
     steps:
     - args:
-      - oc start-build bookstore-quarkus-catalog --from-file=/workspace/source/dev/microservices/bookstore-quarkus-catalog/target/bookstore-quarkus-catalog-1.0.jar
-        -n $(params.namespace) --wait
+      - oc start-build $(params.buildconfig-name) --from-file=$(params.jar-file-path) -n $(params.namespace) --wait
       command:
       - /bin/bash
       - -c

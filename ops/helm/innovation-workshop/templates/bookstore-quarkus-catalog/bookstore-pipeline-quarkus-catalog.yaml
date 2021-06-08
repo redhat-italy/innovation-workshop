@@ -42,6 +42,10 @@ items:
       params:
       - name: namespace
         value: $(params.target-namespace)
+      - name: buildconfig-name
+        value: bookstore-quarkus-catalog
+      - name: jar-file-path
+        value: /workspace/source/dev/microservices/bookstore-quarkus-catalog/target/bookstore-quarkus-catalog-1.0.jar        
       runAfter:
       - build-app
       taskRef:
