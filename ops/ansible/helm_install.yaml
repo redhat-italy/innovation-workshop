@@ -1,0 +1,7 @@
+---
+- name: Deploy target application with Helm
+  hosts: bastions
+  vars_files:
+    - vars.yaml
+  roles:
+    - helm_application_install

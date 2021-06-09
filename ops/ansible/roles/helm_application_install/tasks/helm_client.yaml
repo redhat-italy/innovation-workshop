@@ -1,0 +1,33 @@
+---
+- name: Get the latest helm version
+  shell: 
+    cmd: curl -Ls https://github.com/helm/helm/releases | grep 'href="/helm/helm/releases/tag/v3.[0-9]*.[0-9]*\"' | grep -v no-underline | head -n 1 | cut -d '"' -f 2 | awk '{n=split($NF,a,"/");print a[n]}' | awk 'a !~ $0{print}; {a=$0}'
+    warn: false
+  register: helm_latest_version
+
+- set_fact:
+    helm_client_tag: "{{ helm_latest_version.stdout }}"
+    helm_client_os: linux
+    helm_client_arch: amd64
+    helm_tmp_download: /tmp/helm
+
+- name: Create temporary download directory
+  file:
+    path: "{{ helm_tmp_download }}"
+    state: directory
+
+- name: Download the latest helm client version
+  unarchive:
+    src: "https://get.helm.sh/helm-{{ helm_client_tag }}-{{ helm_client_os }}-{{helm_client_arch }}.tar.gz"
+    dest: "{{ helm_tmp_download }}"
+    remote_src: yes
+
+- name: Copy the helm client to the binary path
+  copy:
+    src: "{{ helm_tmp_download }}/linux-amd64/helm"
+    dest: /usr/local/bin/helm
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: yes
+  become: true

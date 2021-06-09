@@ -1,0 +1,9 @@
+---
+- name: Deploy target application with Helm
+  hosts: bastions
+  vars_files:
+    - vars.yaml
+  tasks:
+    - ansible.builtin.include_role:
+        name: helm_application_install
+        tasks_from: uninstall.yaml
