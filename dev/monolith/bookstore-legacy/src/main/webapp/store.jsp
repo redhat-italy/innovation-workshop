@@ -14,8 +14,9 @@
             /* Create three equal columns that floats next to each other */
             .column {
               float: left;
-              width: 33.33%;
-              padding: 10px;
+              width: 31.33%;
+              padding: 15px;
+              margin: 5px;
               height: 600px; /*Should be removed. Only for demonstration */
             }
 
@@ -26,12 +27,15 @@
               clear: both;
             }
         </style>
+        <title><% out.println("Acme Bookstore" );%> - Sale!</title>
     </head>
-<body>
+<body style="margin:0; padding:0">
 <% int booksColumn = 0;
     boolean rowClosed = false;
 %>
-<h2><% out.println("Acme Bookstore" );%> - Sale!</h2>
+<div style="border-style: solid; border-width: thin;  background-color: black; width: 100%;">
+    <center><h1 style="color:white"><% out.println("Acme Bookstore" );%> - Sale!</h1></center>
+</div>
 <br>
 
 
@@ -40,7 +44,7 @@
         rowClosed=false;%>
         <div class="Row">
     <% }%>
-            <div class="Column">
+            <div class="Column" style="border-style: solid; border-width: thin;">
                 <p>
                     <h2><bean:write name="booksList" property="title"/></h2>
                     <br>
