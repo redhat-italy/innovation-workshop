@@ -1,3 +1,4 @@
 install-helm.sh
 delete.sh
 innovation-workshop/templates/command.tmp
+bookstore-legacy/tmp/

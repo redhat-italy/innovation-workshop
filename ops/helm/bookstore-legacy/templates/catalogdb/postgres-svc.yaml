@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    template: postgresql-ephemeral-template    
+  name: {{ .Values.catalogdb.servicename }}
+spec:
+  ports:
+  - name: postgresql
+    port: {{ .Values.catalogdb.port }}
+    protocol: TCP
+    targetPort: {{ .Values.catalogdb.port }}
+  selector:
+    name: {{ .Values.catalogdb.servicename }}
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,25 @@
+apiVersion: v1
+items:
+- apiVersion: tekton.dev/v1beta1
+  kind: Task
+  metadata:
+    name: deployment-rollout
+  spec:
+    params:
+    - name: namespace
+      type: string
+    - name: deployment-name
+      type: string
+    steps:
+    - args:
+      - oc rollout restart deployment $(params.deployment-name) -n $(params.namespace)
+      command:
+      - /bin/bash
+      - -c
+      image: quay.io/openshift/origin-cli:latest
+      name: deploy
+    workspaces:
+    - description: The workspace where the source code will found
+      name: source
+kind: List
+metadata: {}

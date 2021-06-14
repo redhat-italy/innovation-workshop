@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: bookstore-webapp
+    app.kubernetes.io/component: bookstore-webapp
+    app.kubernetes.io/instance: bookstore-webapp
+  name: bookstore-webapp
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: bookstore-webapp:{{ .Values.application.config.bookstore.catalog.tag }}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.application.config.bookstore.catalog.baseimage }}
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5

@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: maven-build
+spec:
+  workspaces:
+  - name: source
+    description: The workspace where the source code will found
+  steps:  
+  - name: build
+    image: maven:3.8-jdk-11
+    command: ["/bin/bash", "-c"]      
+    args:
+    - /usr/bin/mvn -f /workspace/source/catalog/dev/monolith/bookstore-legacy/pom.xml -s /workspace/source/catalog/dev/monolith/bookstore-legacy/custom-settings.xml clean package -Dmaven.repo.local=/workspace/source/m2
+
+
+
