@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: maven-build
+  name: maven-legacy-build
 spec:
   workspaces:
   - name: source

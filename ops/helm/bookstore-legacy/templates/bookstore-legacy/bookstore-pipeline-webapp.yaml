@@ -34,7 +34,7 @@ items:
       runAfter:
       - fetch-repository
       taskRef:
-        name: maven-build
+        name: maven-legacy-build
       workspaces:
       - name: source
         workspace: workspace-acme
